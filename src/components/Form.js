@@ -1,92 +1,130 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { Modal } from "modal-projet-14-oc";
+import { useNavigate } from "react-router-dom";
 import "../style/form.css";
 
+import { EmployeeContext } from "../services/employees";
+import Datepicker from "./datepicker";
+import Dropdown from "./dropdownSelect";
+
+import { states, departments } from "../services/data";
+
 const Form = () => {
+  const { employees, setEmployees } = useContext(EmployeeContext);
+  const [firstName, setFirstName] = useState("");
+  const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+
+  const save = () => {
+    console.debug("saving new employee...");
+    // TODO: récupérer tous les inputs
+    // TODO: je transforme mes inputs en un nouveau employee
+    const employee = { name: firstName };
+    setEmployees([...employees, employee]);
+    setShow(true);
+  };
+
   return (
-    <div className="container">
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        save();
+      }}
+      className="container"
+    >
       <h2>Create Employee</h2>
       <div className="field">
-        <input type="text" name="first-name" autoComplete="off" required />
+        <input
+          className="input-form"
+          type="text"
+          name="first-name"
+          autoComplete="off"
+          required
+          onChange={(e) => setFirstName(e.target.value)}
+        />
         <label htmlFor="first-name" className="label-wrapper">
           <span className="label-text">First Name</span>
         </label>
       </div>
       <div className="field">
-        <input type="text" name="last-name" autoComplete="off" required />
+        <input
+          className="input-form"
+          type="text"
+          name="last-name"
+          autoComplete="off"
+          required
+        />
         <label htmlFor="last-name" className="label-wrapper">
           <span className="label-text">Last Name</span>
         </label>
       </div>
-      <div className="field">
-        <input type="text" name="date-of-birth" autoComplete="off" required />
-        <label htmlFor="date-of-birth" className="label-wrapper">
-          <span className="label-text">Date of Birth</span>
+      <div className="datePicker">
+        <label htmlFor="start-date" className="label-wrapper">
+          <span className="label-text">Birth Date</span>
         </label>
+        <Datepicker />
       </div>
-      <div className="field">
-        <input type="text" name="start-date" autoComplete="off" required />
+      <div className="datePicker">
         <label htmlFor="start-date" className="label-wrapper">
           <span className="label-text">Start Date</span>
         </label>
+        <Datepicker />
       </div>
-      {/* <div>
-        <label htmlFor="first-name">First Name</label>
-        <input type="text" id="first-name" />
-      </div>
-      <div>
-        <label htmlFor="last-name">Last Name</label>
-        <input type="text" id="last-name" />
-      </div>
-
-      <div>
-        <label htmlFor="date-of-birth">Date of Birth</label>
-        <input id="date-of-birth" type="text" />
-      </div>
-      <div>
-        <label htmlFor="start-date">Start Date</label>
-        <input id="start-date" type="text" />
-      </div> */}
-
       <fieldset className="address">
         <legend>Address</legend>
 
         <div className="field">
-          <input type="text" id="street" autoComplete="off" required />
+          <input
+            className="input-form"
+            type="text"
+            id="street"
+            autoComplete="off"
+            required
+          />
           <label htmlFor="street" className="label-wrapper">
             <span className="label-text">Street</span>
           </label>
         </div>
 
         <div className="field">
-          <input type="text" id="city" autoComplete="off" required />
+          <input
+            className="input-form"
+            type="text"
+            id="city"
+            autoComplete="off"
+            required
+          />
           <label htmlFor="city" className="label-wrapper">
             <span className="label-text">City</span>
           </label>
         </div>
 
-        <div className="fieldBottom">
+        <div className="dropdown">
           <label htmlFor="state">State</label>
-          <select name="state" id="state"></select>
+          <Dropdown options={states} labelKey={"name"} />
         </div>
 
         <div className="fieldBottom">
           <label htmlFor="zip-code">Zip Code</label>
-          <input id="zip-code" type="number" />
+          <input className="input-form" id="zip-code" type="number" />
         </div>
 
-        <div className="fieldBottom">
+        <div className="dropdown">
           <label htmlFor="department">Department</label>
-          <select name="department" id="department">
-            <option>Sales</option>
-            <option>Marketing</option>
-            <option>Engineering</option>
-            <option>Human Resources</option>
-            <option>Legal</option>
-          </select>
+          <Dropdown options={departments} labelKey={"department"} />
         </div>
       </fieldset>
-      <button>Save</button>
-    </div>
+      <button className="submitForm">Save</button>
+      <Modal
+        onClose={() => {
+          setShow(false);
+          navigate("/Employees");
+        }}
+        show={show}
+      >
+        <p>Employee Created !</p>
+      </Modal>
+    </form>
   );
 };
 
