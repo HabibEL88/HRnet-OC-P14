@@ -12,10 +12,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <Home />,
   },
-  // {
-  //   path: "/Employees",
-  //   element: <Employees />,
-  // },
+  {
+    path: "/Employees",
+    element: <Employees />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
