@@ -1,11 +1,14 @@
 import React from "react";
 import Form from "../components/Form";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
     <main>
-      <h2>Create Employee</h2>
+      <Header />
       <Form />
+      <Footer />
     </main>
   );
 };
