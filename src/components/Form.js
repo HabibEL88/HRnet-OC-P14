@@ -52,7 +52,7 @@ const Form = () => {
           onChange={(e) => setFirstName(e.target.value)}
           {...register("name", {
             required: "This is required.",
-            pattern: /^[A-Za-z]+$/i,
+            pattern: /^(?!\s+$)[a-zA-Z]{2,}$/,
           })}
         />
         <ErrorMessage
@@ -72,7 +72,7 @@ const Form = () => {
           autoComplete="off"
           {...register("lastName", {
             required: "This is required.",
-            pattern: /^[A-Za-z]+$/i,
+            pattern: /^(?!\s+$)[a-zA-Z]{2,}$/,
           })}
         />
         <ErrorMessage
@@ -139,7 +139,7 @@ const Form = () => {
             autoComplete="off"
             {...register("Street", {
               required: "This is required.",
-              pattern: /^[A-Za-z]+$/i,
+              pattern: /^(?!\s+$)[a-zA-Z]{2,}$/,
             })}
           />
           <ErrorMessage
@@ -160,7 +160,7 @@ const Form = () => {
             autoComplete="off"
             {...register("City", {
               required: "This is required.",
-              pattern: /^[A-Za-z]+$/i,
+              pattern: /^(?!\s+$)[a-zA-Z]{2,}$/,
             })}
           />
           <ErrorMessage
