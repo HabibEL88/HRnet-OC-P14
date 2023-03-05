@@ -1,20 +1,35 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import "./index.css";
 import Home from "./pages/Home";
 import Employees from "./pages/Employees";
 import reportWebVitals from "./reportWebVitals";
 import { EmployeeContext, BASE_DATA } from "./services/employees";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+const Layout = () => (
+  <>
+    <Header />
+    <Outlet />
+    <Footer />
+  </>
+);
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/Employees",
-    element: <Employees />,
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/Employees",
+        element: <Employees />,
+      },
+    ],
   },
 ]);
 

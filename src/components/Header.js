@@ -2,11 +2,12 @@ import React from "react";
 import logo from "../assets/HRnetlogo.webp";
 import logoBrand from "../assets/HRnetbrandname.webp";
 import "../style/header.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Img = (cn, src, alt) => <img className={cn} src={src} alt={alt} />;
 
 const Header = () => {
+  const location = useLocation();
   return (
     <header>
       <div className="logoNavbar">
@@ -16,7 +17,11 @@ const Header = () => {
       <nav className="navbar">
         <div className="">
           <h1>HRnet</h1>
-          <Link to="/Employees">View Current Employees</Link>
+          {location.pathname === "/" ? (
+            <Link to={"/employees"}>View current Employees</Link>
+          ) : (
+            <Link to={"/"}>Home</Link>
+          )}
         </div>
       </nav>
     </header>
