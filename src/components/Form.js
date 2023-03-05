@@ -4,8 +4,12 @@ import { useNavigate } from "react-router-dom";
 import "../style/form.css";
 
 import { EmployeeContext } from "../services/employees";
-import Datepicker from "./datepicker";
+import { Controller, useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 import Dropdown from "./dropdownSelect";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Select from "react-dropdown-select";
 
 import { states, departments } from "../services/data";
 
@@ -15,34 +19,48 @@ const Form = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
-  const save = () => {
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const submitForm = (data) => {
+    data.birthDate = data.birthDate.toLocaleDateString();
+    data.startDate = data.startDate.toLocaleDateString();
+    data.id = employees.slice(-1)[0].id + 1;
+    console.log(data);
     console.debug("saving new employee...");
+    console.log(employees.slice(-1));
     // TODO: récupérer tous les inputs
     // TODO: je transforme mes inputs en un nouveau employee
-    const employee = { name: firstName };
-    setEmployees([...employees, employee]);
+    setEmployees([...employees, data]);
+    console.log(employees);
     setShow(true);
   };
 
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        save();
-      }}
-      className="container"
-    >
+    <form onSubmit={handleSubmit(submitForm)} className="container">
       <h2>Create Employee</h2>
       <div className="field">
         <input
           className="input-form"
           type="text"
-          name="first-name"
+          name="name"
           autoComplete="off"
-          required
           onChange={(e) => setFirstName(e.target.value)}
+          {...register("name", {
+            required: "This is required.",
+            pattern: /^[A-Za-z]+$/i,
+          })}
         />
-        <label htmlFor="first-name" className="label-wrapper">
+        <ErrorMessage
+          errors={errors}
+          name="name"
+          render={({ message }) => <p>{message}</p>}
+        />
+        <label htmlFor="name" className="label-wrapper">
           <span className="label-text">First Name</span>
         </label>
       </div>
@@ -50,25 +68,65 @@ const Form = () => {
         <input
           className="input-form"
           type="text"
-          name="last-name"
+          name="LastName"
           autoComplete="off"
-          required
+          {...register("lastName", {
+            required: "This is required.",
+            pattern: /^[A-Za-z]+$/i,
+          })}
         />
-        <label htmlFor="last-name" className="label-wrapper">
+        <ErrorMessage
+          errors={errors}
+          name="lastName"
+          render={({ message }) => <p>{message}</p>}
+        />
+        <label htmlFor="lastName" className="label-wrapper">
           <span className="label-text">Last Name</span>
         </label>
       </div>
       <div className="datePicker">
-        <label htmlFor="start-date" className="label-wrapper">
+        <label htmlFor="birthDate" className="label-wrapper">
           <span className="label-text">Birth Date</span>
         </label>
-        <Datepicker />
+        <Controller
+          control={control}
+          name="birthDate"
+          rules={{ required: "This is required." }}
+          render={({ field }) => (
+            <DatePicker
+              placeholderText="Select date"
+              selected={field.value}
+              onChange={(date) => field.onChange(date)}
+            />
+          )}
+        />
+        <ErrorMessage
+          errors={errors}
+          name="birthDate"
+          render={({ message }) => <p>{message}</p>}
+        />
       </div>
       <div className="datePicker">
-        <label htmlFor="start-date" className="label-wrapper">
+        <label htmlFor="startDate" className="label-wrapper">
           <span className="label-text">Start Date</span>
         </label>
-        <Datepicker />
+        <Controller
+          control={control}
+          name="startDate"
+          rules={{ required: "This is required." }}
+          render={({ field }) => (
+            <DatePicker
+              placeholderText="Select date"
+              selected={field.value}
+              onChange={(date) => field.onChange(date)}
+            />
+          )}
+        />
+        <ErrorMessage
+          errors={errors}
+          name="startDate"
+          render={({ message }) => <p>{message}</p>}
+        />
       </div>
       <fieldset className="address">
         <legend>Address</legend>
@@ -79,9 +137,17 @@ const Form = () => {
             type="text"
             id="street"
             autoComplete="off"
-            required
+            {...register("Street", {
+              required: "This is required.",
+              pattern: /^[A-Za-z]+$/i,
+            })}
           />
-          <label htmlFor="street" className="label-wrapper">
+          <ErrorMessage
+            errors={errors}
+            name="Street"
+            render={({ message }) => <p>{message}</p>}
+          />
+          <label htmlFor="Street" className="label-wrapper">
             <span className="label-text">Street</span>
           </label>
         </div>
@@ -90,28 +156,93 @@ const Form = () => {
           <input
             className="input-form"
             type="text"
-            id="city"
+            id="City"
             autoComplete="off"
-            required
+            {...register("City", {
+              required: "This is required.",
+              pattern: /^[A-Za-z]+$/i,
+            })}
           />
-          <label htmlFor="city" className="label-wrapper">
+          <ErrorMessage
+            errors={errors}
+            name="City"
+            render={({ message }) => <p>{message}</p>}
+          />
+          <label htmlFor="City" className="label-wrapper">
             <span className="label-text">City</span>
           </label>
         </div>
 
         <div className="dropdown">
-          <label htmlFor="state">State</label>
-          <Dropdown options={states} labelKey={"name"} />
+          <label htmlFor="State">State</label>
+          <Controller
+            control={control}
+            name="State"
+            rules={{ required: "This is required." }}
+            render={({ field, labelKey = "name" }) => (
+              <Select
+                options={states}
+                dropdownHandleRenderer={({ state }) => (
+                  // if dropdown is open show "–" else show "+"
+                  <span>{state.dropdown ? "–" : "+"}</span>
+                )}
+                onChange={(val) => {
+                  field.onChange(val[0].name);
+                }}
+                labelField={labelKey}
+                valueField={labelKey}
+              />
+            )}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="State"
+            render={({ message }) => <p>{message}</p>}
+          />
         </div>
 
         <div className="fieldBottom">
-          <label htmlFor="zip-code">Zip Code</label>
-          <input className="input-form" id="zip-code" type="number" />
+          <label htmlFor="Zip">Zip Code</label>
+          <input
+            className="input-form"
+            id="Zip"
+            type="number"
+            {...register("Zip", { required: "This is required." })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="Zip"
+            render={({ message }) => <p>{message}</p>}
+          />
         </div>
 
         <div className="dropdown">
-          <label htmlFor="department">Department</label>
-          <Dropdown options={departments} labelKey={"department"} />
+          <label htmlFor="Department">Department</label>
+          <Controller
+            control={control}
+            name="Department"
+            rules={{ required: "This is required." }}
+            render={({ field, labelKey = "department" }) => (
+              <Select
+                options={departments}
+                dropdownHandleRenderer={({ state }) => (
+                  // if dropdown is open show "–" else show "+"
+                  <span>{state.dropdown ? "–" : "+"}</span>
+                )}
+                onChange={(val) => {
+                  console.log(val);
+                  field.onChange(val[0].department);
+                }}
+                labelField={labelKey}
+                valueField={labelKey}
+              />
+            )}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="Department"
+            render={({ message }) => <p>{message}</p>}
+          />
         </div>
       </fieldset>
       <button className="submitForm">Save</button>

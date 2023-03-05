@@ -1,23 +1,57 @@
 import React, { useState } from "react";
 import DataTable from "react-data-table-component";
-import { BASE_DATA } from "../services/employees";
 
 const columns = [
   {
-    name: "Name",
-    selector: "name",
+    name: "First Name",
+    selector: (row) => row.name,
     sortable: true,
   },
   {
-    name: "Birth Year",
-    selector: "birthYear",
+    name: "Last Name",
+    selector: (row) => row.LastName,
     sortable: true,
-    right: true,
   },
   {
-    name: "Birth Place",
-    selector: "birthCity",
+    name: "Start Date",
+    selector: (row) => row.startDate,
     sortable: true,
-    right: true,
+  },
+  {
+    name: "Department",
+    selector: (row) => row.Department,
+    sortable: true,
+  },
+  {
+    name: "Date of Birth",
+    selector: (row) => row.birthDate,
+    sortable: true,
+  },
+  {
+    name: "Street",
+    selector: (row) => row.Street,
+    sortable: true,
+  },
+  {
+    name: "City",
+    selector: (row) => row.City,
+    sortable: true,
+  },
+  {
+    name: "State",
+    selector: (row) => row.State,
+    sortable: true,
+  },
+  {
+    name: "Zip Code",
+    selector: (row) => row.Zip,
+    sortable: true,
   },
 ];
+
+const DataTableComponent = ({ data }) => {
+  console.log(data);
+  return <DataTable columns={columns} data={data} />;
+};
+
+export default DataTableComponent;
