@@ -13,18 +13,13 @@
     align-items: center;
     justify-content: center;
     background-color: white;
-    margin: 6rem auto 0;
+    margin: 0 auto;
+    margin-top: 6rem;
     margin-bottom: 6rem;
     width: 33%;
     border-radius: 15px;
   }
-  /* label {
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 5px;
-    display: block;
-  } */
-  
+
   .input-form,
   .datePicker input,
   select {
@@ -35,7 +30,6 @@
     border: none;
     margin-bottom: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-    caret-color: #ff9950;
   }
 
   .address {
@@ -84,56 +78,18 @@
     transition: 0.75s;
 
   }
- /* button {
-    background-color: #333;
-    color: #fff;
-    font-size: 18px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  button:hover {
-    background-color: #ff9950;
-  } */
-  
   
   .field{
-    position: relative;
-    height: 52px;
     width: 100%;
     margin-bottom: 10px;
     max-width: 250px;
     color: #333;
-    overflow: hidden;
   }
   .fieldBottom{
     margin-top: 10px;
   }
-
-  .field input{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    color: rgb(0, 0, 0);
-    line-height: 52px;
-    outline: 0;
-    background-color: inherit;
-    padding-top: 25px;
-    border: none;
-    box-sizing: border-box;
-  }
   .field .label-wrapper{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    bottom: 0;
-    background-color: inherit;
-    left: 0;
     pointer-events: none;
-    border-bottom: 1px solid #333;
   }
   .field .label-wrapper::after{
     content: "";
@@ -146,25 +102,8 @@
     transform: translateX(-100%);
     transition: transform 0.2s ease;
   }
-  .field .label-text{
-    position: absolute;
-    bottom: 5px;
-    left: 0px;
-    transition: all 0.2s ease;
-  }
-    .field input:focus + .label-wrapper .label-text,
-    .field input:valid + .label-wrapper .label-text{
-        font-size: 12px;
-        color: #ff9950;
-        transform: translateY(-150%);
-    }
-    .field input:focus + .label-wrapper::after,
-    .field input:valid + .label-wrapper::after{
-        transform: translateY(0%);
-    }
-
     .datePicker{
-      height: 52px;
+      height: 4rem;
       width: 100%;
       margin-bottom: 10px;
       margin-top: 10px;
@@ -179,3 +118,9 @@
     margin-bottom: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
   }
+
+.errorMessage {
+  color: red;
+  font-size: 11px;
+  margin-top: 0;
+}
