@@ -5,10 +5,12 @@ import "../style/form.css";
 
 import { EmployeeContext } from "../services/employees";
 import { Controller, useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-dropdown-select";
+import FormErrorMessage from "./FormErrorMessage";
+import Input from "./Input";
+import DatePickerField from "./DatePickerField";
+import DropDownField from "./DropDown";
 
 import { states, departments } from "../services/data";
 
@@ -40,207 +42,107 @@ const Form = () => {
   return (
     <form onSubmit={handleSubmit(submitForm)} className="container">
       <h2>Create Employee</h2>
-      <div className="field">
-        <label htmlFor="name" className="label-wrapper">
-          <span className="label-text">First Name</span>
-        </label>
-        <ErrorMessage
-          errors={errors}
-          name="name"
-          render={({ message }) => <p className="errorMessage">{message}</p>}
-        />
-        <input
-          className="input-form"
-          type="text"
-          name="name"
-          autoComplete="off"
-          {...register("name", {
-            required: "Please enter yout First Name",
-            pattern: /^(?!\s+$)[a-zA-Z]{2,}$/,
-          })}
-        />
-      </div>
-      <div className="field">
-        <label htmlFor="lastName" className="label-wrapper">
-          <span className="label-text">Last Name</span>
-        </label>
-        <ErrorMessage
-          errors={errors}
-          name="lastName"
-          render={({ message }) => <p className="errorMessage">{message}</p>}
-        />
-        <input
-          className="input-form"
-          type="text"
-          name="lastName"
-          autoComplete="off"
-          {...register("lastName", {
-            required: "Please enter your Last Name",
-            pattern: /^(?!\s+$)[a-zA-Z]{2,}$/,
-          })}
-        />
-      </div>
-      <div className="datePicker">
-        <label htmlFor="birthDate" className="label-wrapper">
-          <span className="label-text">Birth Date</span>
-        </label>
-        <ErrorMessage
-          errors={errors}
-          name="birthDate"
-          render={({ message }) => <p className="errorMessage">{message}</p>}
-        />
-        <Controller
-          control={control}
-          name="birthDate"
-          rules={{ required: "Please choose your Birthdate" }}
-          render={({ field }) => (
-            <DatePicker
-              placeholderText="Select date"
-              selected={field.value}
-              onChange={(date) => field.onChange(date)}
-            />
-          )}
-        />
-      </div>
-      <div className="datePicker">
-        <label htmlFor="startDate" className="label-wrapper">
-          <span className="label-text">Start Date</span>
-        </label>
-        <ErrorMessage
-          errors={errors}
-          name="startDate"
-          render={({ message }) => <p className="errorMessage">{message}</p>}
-        />
-        <Controller
-          control={control}
-          name="startDate"
-          rules={{ required: "Please choose a Start Date" }}
-          render={({ field }) => (
-            <DatePicker
-              placeholderText="Select date"
-              selected={field.value}
-              onChange={(date) => field.onChange(date)}
-            />
-          )}
-        />
-      </div>
+      <Input
+        name="name"
+        label="First Name"
+        inputClass="input-form"
+        inputType="text"
+        labelClass="label-wrapper"
+        spanClass="label-text"
+        containerClass="field"
+        autoComplete="off"
+        register={register}
+        errors={errors}
+      />
+      <Input
+        name="lastName"
+        label="Last Name"
+        inputClass="input-form"
+        inputType="text"
+        labelClass="label-wrapper"
+        spanClass="label-text"
+        containerClass="field"
+        autoComplete="off"
+        register={register}
+        errors={errors}
+      />
+      <DatePickerField
+        name="birthDate"
+        label="Birth Date"
+        control={control}
+        rules={{ required: "Please choose your Birthdate" }}
+        errors={errors}
+      />
+      <DatePickerField
+        name="startDate"
+        label="Start Date"
+        control={control}
+        rules={{ required: "Please choose a Start Date" }}
+        errors={errors}
+      />
+
       <fieldset className="address">
         <legend>Address</legend>
+        <Input
+          name="Street"
+          label="Street"
+          inputClass="input-form"
+          inputType="text"
+          labelClass="label-wrapper"
+          spanClass="label-text"
+          containerClass="field"
+          autoComplete="off"
+          register={register}
+          errors={errors}
+        />
+        <Input
+          name="City"
+          label="City"
+          inputClass="input-form"
+          inputType="text"
+          labelClass="label-wrapper"
+          spanClass="label-text"
+          containerClass="field"
+          autoComplete="off"
+          register={register}
+          errors={errors}
+        />
+        <DropDownField
+          name={"State"}
+          label={"State"}
+          control={control}
+          rules={{ required: "Please choose a State" }}
+          errors={errors}
+          data={states}
+          labelKey="name"
+        />
 
-        <div className="field">
-          <label htmlFor="Street" className="label-wrapper">
-            <span className="label-text">Street</span>
-          </label>
-          <ErrorMessage
-            errors={errors}
-            name="Street"
-            render={({ message }) => <p className="errorMessage">{message}</p>}
-          />
-          <input
-            className="input-form"
-            type="text"
-            id="street"
-            autoComplete="off"
-            {...register("Street", {
-              required: "Please enter a valid street",
-              pattern: /^(?!\s+$)[a-zA-Z]{2,}$/,
-            })}
-          />
-        </div>
+        <Input
+          name="Zip"
+          label="Zip Code"
+          inputClass="input-form"
+          inputType="number"
+          labelClass="label-wrapper"
+          spanClass="label-text"
+          containerClass="fieldBottom"
+          autoComplete="off"
+          register={register}
+          errors={errors}
+        />
 
-        <div className="field">
-          <label htmlFor="City" className="label-wrapper">
-            <span className="label-text">City</span>
-          </label>
-          <ErrorMessage
-            errors={errors}
-            name="City"
-            render={({ message }) => <p className="errorMessage">{message}</p>}
-          />
-          <input
-            className="input-form"
-            type="text"
-            id="City"
-            autoComplete="off"
-            {...register("City", {
-              required: "Please enter a valid City",
-              pattern: /^(?!\s+$)[a-zA-Z]{2,}$/,
-            })}
-          />
-        </div>
-
-        <div className="dropdown">
-          <label htmlFor="State">State</label>
-          <ErrorMessage
-            errors={errors}
-            name="State"
-            render={({ message }) => <p className="errorMessage">{message}</p>}
-          />
-          <Controller
-            control={control}
-            name="State"
-            rules={{ required: "Please choose a State" }}
-            render={({ field, labelKey = "name" }) => (
-              <Select
-                options={states}
-                dropdownHandleRenderer={({ state }) => (
-                  // if dropdown is open show "–" else show "+"
-                  <span>{state.dropdown ? "–" : "+"}</span>
-                )}
-                onChange={(val) => {
-                  field.onChange(val[0].name);
-                }}
-                labelField={labelKey}
-                valueField={labelKey}
-              />
-            )}
-          />
-        </div>
-
-        <div className="fieldBottom">
-          <label htmlFor="Zip">Zip Code</label>
-          <ErrorMessage
-            errors={errors}
-            name="Zip"
-            render={({ message }) => <p className="errorMessage">{message}</p>}
-          />
-          <input
-            className="input-form"
-            id="Zip"
-            type="number"
-            {...register("Zip", { required: "Please choose a Zip Code" })}
-          />
-        </div>
-
-        <div className="dropdown">
-          <label htmlFor="Department">Department</label>
-          <ErrorMessage
-            errors={errors}
-            name="Department"
-            render={({ message }) => <p className="errorMessage">{message}</p>}
-          />
-          <Controller
-            control={control}
-            name="Department"
-            rules={{ required: "Please choose a Departement" }}
-            render={({ field, labelKey = "department" }) => (
-              <Select
-                options={departments}
-                dropdownHandleRenderer={({ state }) => (
-                  // if dropdown is open show "–" else show "+"
-                  <span>{state.dropdown ? "–" : "+"}</span>
-                )}
-                onChange={(val) => {
-                  field.onChange(val[0].department);
-                }}
-                labelField={labelKey}
-                valueField={labelKey}
-              />
-            )}
-          />
-        </div>
+        <DropDownField
+          name={"Department"}
+          label={"Department"}
+          control={control}
+          rules={{ required: "Please choose a Departement" }}
+          errors={errors}
+          data={departments}
+          labelKey="department"
+        />
       </fieldset>
-      <button className="submitForm">Save</button>
+      <button className="submitForm" aria-label="Save the form data">
+        Save
+      </button>
       <Modal
         onClose={() => {
           setShow(false);

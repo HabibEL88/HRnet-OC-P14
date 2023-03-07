@@ -5,7 +5,6 @@ import DataTableComponent from "../components/dataTable";
 
 const Employees = () => {
   const { employees } = useContext(EmployeeContext);
-
   return (
     <div>
       <DataTableComponent data={employees} />
