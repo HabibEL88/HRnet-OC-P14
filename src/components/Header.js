@@ -4,8 +4,6 @@ import logoBrand from "../assets/HRnetbrandname.webp";
 import "../style/header.css";
 import { Link, useLocation } from "react-router-dom";
 
-const Img = (cn, src, alt) => <img className={cn} src={src} alt={alt} />;
-
 const Header = () => {
   const location = useLocation();
   return (

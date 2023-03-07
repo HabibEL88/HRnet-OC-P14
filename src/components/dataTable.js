@@ -51,16 +51,33 @@ const columns = [
 ];
 
 const DataTableComponent = ({ data }) => {
+  const [searchText, setSearchText] = useState("");
+  const filteredData = data.filter((row) =>
+    `${row.name} ${row.lastName} ${row.startDate}${row.Department}${row.birthDate}${row.Street}${row.City}${row.State}${row.Zip}`
+      .toLowerCase()
+      .includes(searchText.toLowerCase())
+  );
+
+  const paginationComponentOptions = {
+    selectAllRowsItem: true,
+    selectAllRowsItemText: "ALL",
+  };
+
   return (
     <div className="dataTableContainer">
+      <input
+        type="text"
+        placeholder="Search"
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+      />
       <DataTable
         columns={columns}
-        data={data}
+        data={filteredData}
         striped={true}
         highlightOnHover={true}
-        pagination={true}
-        paginationPerPage={10}
-        paginationRowsPerPageOptions={[10, 20, 50]}
+        pagination
+        paginationComponentOptions={paginationComponentOptions}
         noHeader={true}
       />
     </div>

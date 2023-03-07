@@ -18,11 +18,12 @@
     margin-bottom: 6rem;
     width: 33%;
     border-radius: 15px;
+    box-shadow: 0px 5px 10px rgb(0 0 0 / 30%);
   }
 
   .input-form,
   .datePicker input,
-  select {
+  .dropDownSelect {
     width: 100%;
     font-size: 16px;
     padding: 10px;
@@ -55,12 +56,13 @@
     font-size: 16px;
     text-transform: uppercase;
     padding: 10px 30px;
-    border: 2px solid #ff9950;
+    border: 3px solid lavenderblush;
     border-radius: 32px;
     transform: translate(0);
     overflow: hidden;
     cursor: pointer;
     margin-bottom: 15px;
+    box-shadow: 0px 5px 10px rgb(0 0 0 / 10%);
   }
   .submitForm:before{
     content: "";
@@ -123,4 +125,4 @@
   color: red;
   font-size: 11px;
   margin-top: 0;
-}
+  }
