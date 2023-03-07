@@ -3,6 +3,19 @@ import { Controller } from "react-hook-form";
 import Select from "react-dropdown-select";
 import FormErrorMessage from "./FormErrorMessage";
 
+/**
+  * Composant de champ de sélection déroulant, utilisant react-dropdown-select et react-hook-form
+
+ * @param {string} name - Le nom du champ de formulaire associé au champ de sélection déroulant.
+ * @param {string} label - Le texte à afficher comme libellé pour le champ de sélection déroulant
+ * @param {object} control - L'objet de contrôle fourni par React Hook Form.
+ * @param {object} rules - Les règles de validation à appliquer au champ de formulaire associé.
+ * @param {object} errors - Les erreurs de validation fournies par React Hook Form.
+  * @param {object} data - Les options à afficher dans le champ de sélection déroulant.
+  * @param {string} labelKey - La clé pour les options qui représentent l'étiquette à afficher pour chaque option.  
+ * @param {object} restProps - Les autres propriétés passées au champ.
+ */
+
 const DropDownField = ({
   name,
   label,
