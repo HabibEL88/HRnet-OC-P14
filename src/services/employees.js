@@ -5,7 +5,7 @@ export const BASE_DATA = [
   {
     id: 1,
     name: "Tiger",
-    LastName: "Nixon",
+    lastName: "Nixon",
     startDate: "18/03/2000",
     Department: "Marketing",
     birthDate: "02/02/1968",
@@ -17,7 +17,7 @@ export const BASE_DATA = [
   {
     id: 2,
     name: "Garrett",
-    LastName: "Winters",
+    lastName: "Winters",
     startDate: "18/03/2002",
     Department: "Marketing",
     birthDate: "02/02/1955",
@@ -29,7 +29,7 @@ export const BASE_DATA = [
   {
     id: 3,
     name: "Ashton",
-    LastName: "Cox",
+    lastName: "Cox",
     startDate: "18/03/1998",
     Department: "Marketing",
     birthDate: "02/02/1970",

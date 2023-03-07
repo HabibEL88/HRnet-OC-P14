@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DataTable from "react-data-table-component";
+import "../style/datatable.css";
 
 const columns = [
   {
@@ -9,7 +10,7 @@ const columns = [
   },
   {
     name: "Last Name",
-    selector: (row) => row.LastName,
+    selector: (row) => row.lastName,
     sortable: true,
   },
   {
@@ -50,8 +51,19 @@ const columns = [
 ];
 
 const DataTableComponent = ({ data }) => {
-  console.log(data);
-  return <DataTable columns={columns} data={data} />;
+  return (
+    <div className="dataTableContainer">
+      <DataTable
+        columns={columns}
+        data={data}
+        striped={true}
+        highlightOnHover={true}
+        pagination={true}
+        paginationPerPage={10}
+        paginationRowsPerPageOptions={[10, 20, 50]}
+        noHeader={true}
+      />
+    </div>
+  );
 };
-
 export default DataTableComponent;

@@ -9,8 +9,8 @@ const Footer = () => {
       <div className="logoFooter">
         <img className="nav-logo" src={logo} alt="Wealth Health logo" />
         <img className="nav-brand" src={logoBrand} alt="Wealth Health brand" />
-        <span>Copyright 2023</span>
       </div>
+      <p>Copyright 2023</p>
     </footer>
   );
 };
