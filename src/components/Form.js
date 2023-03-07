@@ -4,10 +4,8 @@ import { useNavigate } from "react-router-dom";
 import "../style/form.css";
 
 import { EmployeeContext } from "../services/employees";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
-import Select from "react-dropdown-select";
-import FormErrorMessage from "./FormErrorMessage";
 import Input from "./Input";
 import DatePickerField from "./DatePickerField";
 import DropDownField from "./DropDown";
