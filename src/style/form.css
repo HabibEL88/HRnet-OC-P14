@@ -16,7 +16,8 @@
     margin: 0 auto;
     margin-top: 6rem;
     margin-bottom: 6rem;
-    width: 33%;
+    width: 90%; /* Use a percentage value for width */
+    max-width: 500px;
     border-radius: 15px;
     box-shadow: 0px 5px 10px rgb(0 0 0 / 30%);
   }
@@ -37,10 +38,12 @@
     border: none;
     padding: 0;
     margin: 25px 0 10px 0;
+    width: 100%; /* Use a percentage value for width */
     width: 250px;
   }
   .inputDepartement{
-    width: 250px;
+    width: 100%; /* Use a percentage value for width */
+  max-width: 250px;
   }
   
   
@@ -126,3 +129,53 @@
   font-size: 11px;
   margin-top: 0;
   }
+
+  @media screen and (max-width: 768px) {
+.container {
+width: 80%;
+margin-top: 3rem;
+margin-bottom: 3rem;
+}
+
+.input-form,
+.datePicker input,
+.dropDownSelect {
+font-size: 14px;
+}
+
+.address {display: flex;
+  width: 31rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.inputDepartement{
+width: 100%;
+}
+
+.submitForm{
+font-size: 14px;
+padding: 10px 20px;
+}
+
+.field{
+max-width: 70%;
+}
+
+.datePicker{
+height: 3rem;
+max-width: 70%;
+}
+.dropdown{
+ width: 70%;
+}
+.fieldBottom {
+  width: 70%;
+}
+
+.dropdown > div > div{
+font-size: 14px;
+}
+}
+
